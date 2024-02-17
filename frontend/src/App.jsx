@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import './App.css'
+
 
 function App() {
   const [userData, setUserData] = useState(null);
@@ -13,7 +13,7 @@ function App() {
           throw new Error('Network response was not ok');
         }
         const data = await response.json();
-        setUserData(data.results[0]); // Assuming data.results is an array
+        setUserData(data.results[0]); 
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -24,21 +24,22 @@ function App() {
 
   return (
     <>
-      <div>
       {userData ? (
-        <div>
-          <h2>User Profile</h2>
-          <div>
-            <img src={userData.picture.large} alt="User" />
-            <p>Name: {`${userData.name.first} ${userData.name.last}`}</p>
-            <p>Email: {userData.email}</p>
-            <p>Gender: {userData.gender}</p>
+        <div className='flex justify-around py-5 px-10 items-center bg-white text-slate-800 rounded-3xl h-[250px] shadow-lg'>
+          
+          <div className='rounded-full shadow-lg mr-4'>
+            <img src={userData.picture.large} alt="" className='rounded-full '/>
+          </div>
+          
+          <div className='flex flex-col justify-center gap-5 border-l-[1px] border-slate-600 pl-5'>
+            <p className='font-light text-2xl'>{userData.name.title} {userData.name.first} {userData.name.last}</p>
+            <p className='font-light'>Gender: {userData.gender}</p>
+            <p className='font-light'>Contact: {userData.phone}</p>
           </div>
         </div>
       ) : (
         <p>Loading...</p>
       )}
-    </div>
     </>
   )
 }
